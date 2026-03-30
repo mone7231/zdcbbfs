@@ -150,7 +150,7 @@
 
   <script>
     // ── CONFIG ──────────────────────────────────────────
-    const API_BASE = "https://poster-assume-brought-morning.trycloudflare.com";
+    const API_BASE = "https://baf8-52-193-183-37.ngrok-free.app";
     const API_KEY  = "mdbo-secure-key-2024";
     // ────────────────────────────────────────────────────
 
@@ -174,7 +174,7 @@
 
       try {
         const res = await fetch(`${API_BASE}/api/webapp/linked-agents`, {
-          headers: { 'x-api-key': API_KEY }
+          headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': '1' }
         });
 
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
@@ -211,7 +211,7 @@
     async function loadCount() {
       try {
         const res = await fetch(`${API_BASE}/api/webapp/linked-agents`, {
-          headers: { 'x-api-key': API_KEY }
+          headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': '1' }
         });
         if (!res.ok) return;
         const data = await res.json();
