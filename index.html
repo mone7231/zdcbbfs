@@ -16,15 +16,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    .header {
-      background: var(--tg-theme-secondary-bg-color, #fff);
-      padding: 16px 20px 12px;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .header h1 { font-size: 18px; font-weight: 700; }
-    .header p  { font-size: 13px; color: var(--tg-theme-hint-color, #888); margin-top: 2px; }
-
     /* ── Tab Pages ── */
     .page { display: none; padding: 16px; }
     .page.active { display: block; }
@@ -156,12 +147,6 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <h1>Finance Bot</h1>
-    <p id="greeting">Loading...</p>
-  </div>
-
   <!-- ── PAGE: Home ── -->
   <div id="page-home" class="page active">
     <div class="card-row" style="margin-top:4px;">
@@ -237,7 +222,7 @@
 
   <script>
     // ── CONFIG ──────────────────────────────────────────────────────
-    const API_BASE = "http://tg.gold6688.biz";
+    const API_BASE = "https://tg.gold6688.biz";
     const API_KEY  = "mdbo-secure-key-2024";
     // ────────────────────────────────────────────────────────────────
 
@@ -246,8 +231,6 @@
     tg.expand();
 
     const user = tg.initDataUnsafe?.user;
-    document.getElementById('greeting').textContent =
-      user?.first_name ? `Hello, ${user.first_name}!` : 'Hello!';
 
     const HEADERS = {
       'x-api-key': API_KEY,
