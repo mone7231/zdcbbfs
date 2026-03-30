@@ -15,10 +15,7 @@
       padding: 20px;
     }
 
-    h2 {
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
+    h2 { font-size: 20px; margin-bottom: 6px; }
 
     .subtitle {
       font-size: 13px;
@@ -45,126 +42,118 @@
       color: var(--tg-theme-text-color, #000);
     }
 
-    .card-value.green { color: #27ae60; }
-    .card-value.red   { color: #e74c3c; }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+    }
 
-    .invoice-list { margin-top: 20px; }
+    .btn-primary {
+      background: var(--tg-theme-button-color, #2481cc);
+      color: var(--tg-theme-button-text-color, #ffffff);
+    }
 
-    .invoice-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .btn-secondary {
+      background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+      color: var(--tg-theme-text-color, #000000);
+    }
+
+    /* Linked Agents Panel */
+    #linked-panel {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .agent-item {
       background: var(--tg-theme-secondary-bg-color, #f5f5f5);
       border-radius: 10px;
       padding: 12px 16px;
       margin-bottom: 8px;
     }
 
-    .invoice-name { font-size: 14px; font-weight: bold; }
-    .invoice-date { font-size: 12px; color: var(--tg-theme-hint-color, #888); margin-top: 2px; }
+    .agent-id {
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-    .invoice-amount { font-size: 15px; font-weight: bold; }
-    .invoice-amount.paid   { color: #27ae60; }
-    .invoice-amount.unpaid { color: #e74c3c; }
+    .agent-group {
+      font-size: 13px;
+      color: var(--tg-theme-hint-color, #888);
+      margin-top: 2px;
+    }
 
-    .badge {
+    .agent-meta {
+      font-size: 11px;
+      color: var(--tg-theme-hint-color, #aaa);
+      margin-top: 4px;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 13px;
+      color: var(--tg-theme-hint-color, #888);
+      padding: 20px 0;
+    }
+
+    .error-msg {
+      text-align: center;
+      font-size: 13px;
+      color: #e74c3c;
+      padding: 12px;
+    }
+
+    .badge-linked {
       display: inline-block;
       font-size: 10px;
       padding: 2px 8px;
       border-radius: 20px;
+      background: #d5f5e3;
+      color: #1e8449;
       margin-top: 4px;
-    }
-    .badge.paid   { background: #d5f5e3; color: #1e8449; }
-    .badge.unpaid { background: #fadbd8; color: #c0392b; }
-
-    .close-btn {
-      width: 100%;
-      padding: 14px;
-      margin-top: 24px;
-      background: var(--tg-theme-button-color, #2481cc);
-      color: var(--tg-theme-button-text-color, #ffffff);
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h2>Finance Summary</h2>
+  <h2>Finance Bot</h2>
   <p class="subtitle" id="greeting">Hello!</p>
 
-  <!-- Summary Cards -->
+  <!-- Summary Card -->
   <div class="card">
-    <div class="card-label">Total Invoices</div>
-    <div class="card-value">5</div>
+    <div class="card-label">Linked Groups</div>
+    <div class="card-value" id="linked-count">—</div>
   </div>
 
-  <div style="display:flex; gap:12px;">
-    <div class="card" style="flex:1">
-      <div class="card-label">Paid</div>
-      <div class="card-value green">3</div>
-    </div>
-    <div class="card" style="flex:1">
-      <div class="card-label">Unpaid</div>
-      <div class="card-value red">2</div>
-    </div>
+  <!-- Show Linked Button -->
+  <button class="btn btn-primary" id="btn-show-linked" onclick="loadLinkedAgents()">
+    View Linked Agents 🔗
+  </button>
+
+  <!-- Linked Agents Panel -->
+  <div id="linked-panel">
+    <div class="panel-title" style="margin-top:20px;">Linked Agents</div>
+    <div id="linked-list"></div>
+    <button class="btn btn-secondary" onclick="hideLinkedPanel()">Hide ▲</button>
   </div>
 
-  <!-- Invoice List -->
-  <div class="invoice-list">
-    <div class="card-label" style="margin-bottom:10px;">Recent Invoices</div>
-
-    <div class="invoice-item">
-      <div>
-        <div class="invoice-name">Invoice #1001</div>
-        <div class="invoice-date">2026-03-28</div>
-        <span class="badge paid">Paid</span>
-      </div>
-      <div class="invoice-amount paid">$500.00</div>
-    </div>
-
-    <div class="invoice-item">
-      <div>
-        <div class="invoice-name">Invoice #1002</div>
-        <div class="invoice-date">2026-03-29</div>
-        <span class="badge unpaid">Unpaid</span>
-      </div>
-      <div class="invoice-amount unpaid">$750.00</div>
-    </div>
-
-    <div class="invoice-item">
-      <div>
-        <div class="invoice-name">Invoice #1003</div>
-        <div class="invoice-date">2026-03-30</div>
-        <span class="badge paid">Paid</span>
-      </div>
-      <div class="invoice-amount paid">$200.00</div>
-    </div>
-
-    <div class="invoice-item">
-      <div>
-        <div class="invoice-name">Invoice #1004</div>
-        <div class="invoice-date">2026-03-30</div>
-        <span class="badge unpaid">Unpaid</span>
-      </div>
-      <div class="invoice-amount unpaid">$1,200.00</div>
-    </div>
-
-    <div class="invoice-item">
-      <div>
-        <div class="invoice-name">Invoice #1005</div>
-        <div class="invoice-date">2026-03-30</div>
-        <span class="badge paid">Paid</span>
-      </div>
-      <div class="invoice-amount paid">$350.00</div>
-    </div>
-  </div>
-
-  <button class="close-btn" onclick="window.Telegram.WebApp.close()">Close</button>
+  <button class="btn btn-secondary" style="margin-top:12px;" onclick="window.Telegram.WebApp.close()">Close</button>
 
   <script>
+    // ── CONFIG ──────────────────────────────────────────
+    const API_BASE = "YOUR_SERVER_URL";   // e.g. http://123.456.789.0:4345
+    const API_KEY  = "YOUR_API_KEY";      // same key used in x-api-key header
+    // ────────────────────────────────────────────────────
+
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
@@ -173,6 +162,63 @@
     if (user?.first_name) {
       document.getElementById('greeting').textContent = 'Hello, ' + user.first_name + '!';
     }
+
+    async function loadLinkedAgents() {
+      const panel = document.getElementById('linked-panel');
+      const list  = document.getElementById('linked-list');
+      const btn   = document.getElementById('btn-show-linked');
+
+      panel.style.display = 'block';
+      btn.style.display = 'none';
+      list.innerHTML = '<div class="loading">Loading...</div>';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/webapp/linked-agents`, {
+          headers: { 'x-api-key': API_KEY }
+        });
+
+        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+        const data = await res.json();
+
+        document.getElementById('linked-count').textContent = data.total;
+
+        if (data.agents.length === 0) {
+          list.innerHTML = '<div class="loading">No linked agents yet.</div>';
+          return;
+        }
+
+        list.innerHTML = data.agents.map(a => `
+          <div class="agent-item">
+            <div class="agent-id">Agent #${a.agent_id}</div>
+            <div class="agent-group">📋 ${a.group_name}</div>
+            <div class="agent-meta">Activated by: ${a.activated_by} · ${a.linked_at}</div>
+            <span class="badge-linked">Linked</span>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        list.innerHTML = `<div class="error-msg">Failed to load: ${err.message}</div>`;
+      }
+    }
+
+    function hideLinkedPanel() {
+      document.getElementById('linked-panel').style.display = 'none';
+      document.getElementById('btn-show-linked').style.display = 'block';
+    }
+
+    // Auto-load count on open
+    async function loadCount() {
+      try {
+        const res = await fetch(`${API_BASE}/api/webapp/linked-agents`, {
+          headers: { 'x-api-key': API_KEY }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById('linked-count').textContent = data.total;
+      } catch (_) {}
+    }
+    loadCount();
   </script>
 
 </body>
